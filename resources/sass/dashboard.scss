@@ -1,0 +1,357 @@
+// import bootstrap dulu
+@import "bootstrap/scss/bootstrap";
+@import "bootstrap-icons/font/bootstrap-icons.css";
+
+/* ============ Variabel Tema ============ */
+:root {
+    --blue-900: #0b1f5b;
+    --blue-800: #0f2e74;
+    --blue-700: #153d8a;
+    --blue-600: #1d4fb0;
+    --blue-500: #2b6ad1;
+    --royal-ink: #0f172a; /* text */
+    --gold-500: #e6b800;
+
+    --sidebar-w: 250px;
+    --sidebar-w-collapsed: 72px;
+    --sidebar-bg: #0d1b3a;
+    --sidebar-link: #cbd5e1;
+    --sidebar-link-active-bg: rgba(43, 106, 209, 0.18);
+    --sidebar-link-active: #ffffff;
+    --content-bg: #f7f9fc;
+}
+
+/* Import Bootstrap dari node_modules (jika belum, install sass & bootstrap) */
+// @import "bootstrap/scss/bootstrap";  // jika kamu pakai full SCSS Bootstrap
+/* Kalau kamu pakai CSS Bootstrap via JS import, baris ini bisa tidak dipakai. */
+
+/* ============ Global ============ */
+html,
+body {
+    height: 100%;
+}
+body {
+    background: var(--content-bg);
+    color: var(--royal-ink);
+    font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI",
+        Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+/* tombol tema */
+.btn-royal {
+    background: var(--blue-700);
+    border-color: var(--blue-700);
+    color: #fff;
+}
+.btn-royal:hover {
+    background: var(--blue-600);
+    border-color: var(--blue-600);
+}
+.btn-royal-ghost {
+    background: transparent;
+    border: 1px solid rgba(21, 61, 138, 0.25);
+    color: var(--blue-700);
+}
+.btn-royal-ghost:hover {
+    background: rgba(21, 61, 138, 0.08);
+}
+
+/* ============ Layout ============ */
+#app {
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: var(--sidebar-w);
+    min-height: 100vh;
+    background: linear-gradient(180deg, var(--sidebar-bg), #08122a);
+    position: relative;
+    z-index: 1030;
+}
+.sidebar-inner {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.sidebar-rule {
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar .nav .nav-link {
+    color: var(--sidebar-link);
+    border-radius: 10px;
+    padding: 0.55rem 0.75rem;
+    display: flex;
+    align-items: center;
+    transition: 0.15s ease;
+}
+.sidebar .nav .nav-link:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #fff;
+}
+.sidebar .nav .nav-link.active {
+    background: var(--sidebar-link-active-bg);
+    color: var(--sidebar-link-active);
+    position: relative;
+}
+.sidebar .nav .nav-link.active::after {
+    /* aksen emas tipis di kiri */
+    content: "";
+    position: absolute;
+    left: -8px;
+    top: 10px;
+    bottom: 10px;
+    width: 3px;
+    background: var(--gold-500);
+    border-radius: 3px;
+}
+
+/* Content */
+.content-wrap {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+.content-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    backdrop-filter: saturate(120%) blur(6px);
+    background: rgba(255, 255, 255, 0.7);
+    border-bottom: 1px solid rgba(2, 6, 23, 0.06);
+    padding: 0.8rem 1rem;
+}
+
+/* Collapsed (desktop ≥ lg) */
+@media (min-width: 992px) {
+    body.sidebar-collapsed .sidebar {
+        width: var(--sidebar-w-collapsed);
+    }
+    body.sidebar-collapsed .sidebar .nav .nav-link {
+        justify-content: center;
+    }
+    body.sidebar-collapsed .sidebar .nav .nav-link i {
+        margin-right: 0 !important;
+    }
+    body.sidebar-collapsed .sidebar .nav .nav-link::after {
+        left: 0;
+    }
+    body.sidebar-collapsed .sidebar .sidebar-inner > .d-flex a {
+        display: none;
+    } /* sembunyikan title */
+}
+
+/* Mobile: sidebar off-canvas */
+@media (max-width: 991.98px) {
+    .sidebar {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        bottom: 0;
+        height: 100vh;
+        transition: left 0.25s ease;
+    }
+    .sidebar.show {
+        left: 0;
+    }
+    .sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(2, 6, 23, 0.45);
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.2s ease;
+    }
+    .sidebar-backdrop.show {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+/* ============ Komponen & Polesan ============ */
+.card {
+    border: none;
+    border-radius: 14px;
+}
+.table thead th {
+    font-weight: 600;
+    color: #334155;
+}
+.table-hover tbody tr:hover {
+    background: rgba(21, 61, 138, 0.04);
+}
+.badge.bg-success {
+    background-color: #16a34a !important;
+}
+
+.pagination .page-link {
+    border: none;
+    border-radius: 10px;
+    margin: 0 0.125rem;
+    padding: 0.45rem 0.75rem;
+    color: var(--blue-700);
+}
+.pagination .page-item.active .page-link {
+    background: var(--blue-700);
+    color: #fff;
+}
+
+/* Dropdown aktif dengan garis bawah emas (permintaan sebelumnya) */
+.dropdown-item.active {
+    color: var(--blue-800) !important;
+    background: transparent !important;
+    position: relative;
+}
+.dropdown-item.active::after {
+    content: "";
+    position: absolute;
+    left: 0.9rem;
+    right: 0.9rem;
+    bottom: 4px;
+    height: 2px;
+    background: var(--gold-500);
+    border-radius: 2px;
+}
+
+/* Modal lebih halus */
+.modal-content {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(2, 6, 23, 0.15);
+}
+.modal-header {
+    border-bottom: 1px solid rgba(2, 6, 23, 0.06);
+}
+.modal-footer {
+    border-top: 1px solid rgba(2, 6, 23, 0.06);
+}
+
+/* ================== BUTTON ================== */
+.btn {
+    border-radius: 10px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(2, 6, 23, 0.08);
+}
+
+/* Primary (biru tema) */
+.btn-primary {
+    background-color: var(--blue-700);
+    border-color: var(--blue-700);
+}
+.btn-primary:hover {
+    background-color: var(--blue-600);
+    border-color: var(--blue-600);
+}
+
+/* Secondary (abu elegan) */
+.btn-secondary {
+    background-color: #64748b;
+    border-color: #64748b;
+    color: #fff;
+}
+.btn-secondary:hover {
+    background-color: darken(#64748b, 7%);
+    border-color: darken(#64748b, 7%);
+}
+
+/* Warning (edit) */
+.btn-warning {
+    background-color: #f59e0b;
+    border-color: #f59e0b;
+    color: #fff;
+}
+.btn-warning:hover {
+    background-color: darken(#f59e0b, 7%);
+    border-color: darken(#f59e0b, 7%);
+}
+
+/* Danger (hapus) */
+.btn-danger {
+    background-color: #dc2626;
+    border-color: #dc2626;
+}
+.btn-danger:hover {
+    background-color: darken(#dc2626, 7%);
+    border-color: darken(#dc2626, 7%);
+}
+
+/* ================== FORM ================== */
+.form-control,
+.form-select {
+    border-radius: 10px;
+    border: 1px solid rgba(2, 6, 23, 0.15);
+    transition: all 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--blue-600);
+    box-shadow: 0 0 0 0.2rem rgba(21, 61, 138, 0.15);
+}
+
+/* ================== SWITCH ================== */
+.form-check-input {
+    cursor: pointer;
+}
+.form-check-input:checked {
+    background-color: var(--blue-700);
+    border-color: var(--blue-700);
+}
+
+/* ================== MODAL ================== */
+.modal-content {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(2, 6, 23, 0.15);
+}
+.modal-header {
+    border-bottom: 1px solid rgba(2, 6, 23, 0.08);
+}
+.modal-footer {
+    border-top: 1px solid rgba(2, 6, 23, 0.08);
+}
+
+/* ================== ALERT ================== */
+.alert {
+    border-radius: 12px;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(2, 6, 23, 0.05);
+}
+.alert-success {
+    background: rgba(34, 197, 94, 0.1);
+    color: #15803d;
+    border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+.section-header {
+    position: relative;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(2, 6, 23, 0.06); /* garis abu tipis default */
+}
+
+.section-header h4 {
+    color: var(--blue-800);
+    font-weight: 700;
+}
+
+/* garis aksen emas di bawah judul */
+.section-header::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 80px; /* panjang garis */
+    height: 3px; /* tebal garis */
+    background-color: var(--gold-500); /* emas */
+    border-radius: 2px;
+}
+
+a.no-underline {
+    text-decoration: none !important;
+}
