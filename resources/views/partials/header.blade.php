@@ -18,35 +18,68 @@
             <div class="collapse navbar-collapse" id="navMain">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-3 align-items-lg-center">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('/') ? 'active' : '' }}"
-                            href="{{ url('/') }}">Beranda</a>
+                        <a class="nav-link {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}"
+                            @if (request()->is('/')) aria-current="page" @endif>
+                            Beranda
+                        </a>
                     </li>
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ request()->is('layanan/*') ? 'active' : '' }}"
-                            href="#" id="navLayanan" role="button" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle {{ request()->is('layanan/*') ? 'active active-parent' : '' }}"
+                            href="#" id="navLayanan" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="{{ request()->is('layanan/*') ? 'true' : 'false' }}"
+                            @if (request()->is('layanan/*')) aria-current="page" @endif>
                             Layanan
+                            <i class="bi bi-chevron-down ms-1 dropdown-caret" aria-hidden="true"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navLayanan">
                             <li>
                                 <a class="dropdown-item {{ request()->is('layanan/tracking') ? 'active' : '' }}"
-                                    href="{{ route('layanan.tracking') }}">
+                                    href="{{ route('aspirasi.tracking') }}">
                                     <i class="bi bi-search me-2"></i> Tracking Masukkan
                                 </a>
                             </li>
                             <li>
                                 <a class="dropdown-item {{ request()->is('layanan/ajukan') ? 'active' : '' }}"
-                                    href="{{ route('layanan.ajukan') }}">
+                                    href="{{ route('aspirasi.form') }}">
                                     <i class="bi bi-megaphone me-2"></i> Ajukan Masukkan
                                 </a>
                             </li>
                         </ul>
                     </li>
 
-                    <li class="nav-item"><a class="nav-link" href="#">Raperda</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Publikasi</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Galeri</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Kontak</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('publikasi.index') ? 'active' : '' }}"
+                            href="{{ route('publikasi.index') }}"
+                            @if (request()->routeIs('publikasi.index')) aria-current="page" @endif>
+                            Raperda
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('galeri.index') ? 'active' : '' }}"
+                            href="{{ route('galeri.index') }}"
+                            @if (request()->routeIs('galeri.index')) aria-current="page" @endif>
+                            Galeri
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('news.index') ? 'active' : '' }}"
+                            href="{{ route('news.index') }}"
+                            @if (request()->routeIs('news.index')) aria-current="page" @endif>
+                            Publikasi
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('kontak') ? 'active' : '' }}"
+                            href="{{ route('kontak') }}" @if (request()->routeIs('kontak')) aria-current="page" @endif>
+                            Kontak
+                        </a>
+                    </li>
+
+
                 </ul>
             </div>
         </div>

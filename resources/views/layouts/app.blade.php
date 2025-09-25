@@ -1,162 +1,119 @@
 <!doctype html>
-<html lang="id" data-bs-theme="light">
+<html lang="id">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', 'JAGARPERDA KALSEL')</title>
+    <title>@yield('title', 'Dashboard Admin')</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    @livewireStyles
+    @vite(['resources/sass/dashboard.scss', 'resources/js/app.js'])
 
-    @stack('styles') {{-- halaman boleh nyuntik style tambahan --}}
-
-    {{-- Font --}}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet" />
-
+    @stack('styles')
     {{-- choices --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
 
 </head>
 
-<body>
+<body class="{{ session('sidebar_collapsed') ? 'sidebar-collapsed' : '' }}">
+    <div id="app" class="d-flex">
 
-    {{-- HEADER (navbar + wave + optional hero placeholder) --}}
-    @include('partials.header')
+        {{-- Sidebar --}}
+        <nav id="sidebar" class="flex-shrink-0 sidebar bg-dark text-white">
+            <div class="sidebar-inner p-3">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <a href="{{ route('admin.raperdas.index') }}"
+                        class="d-flex align-items-center text-white text-decoration-none fw-bold">
+                        <img src="{{ asset('assets/img/logo/logo.png') }}" alt="Logo" class="me-2"
+                            style="height:32px; width:auto;">
+                        ADMIN PANEL
+                    </a>
+                    <button class="btn btn-sm btn-outline-light d-lg-none" id="sidebarClose" aria-label="Tutup sidebar">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
 
-    {{-- ==================== MAIN: BERANDA (simple, 3x3 triangle) ==================== --}}
-    <main class="container section @yield('main-class')">
-        @yield('content')
-    </main>
+                <hr class="sidebar-rule">
+                <ul class="nav nav-pills flex-column gap-1 mb-auto">
+                    <li>
+                        <a href="{{ route('dashboard') }}"
+                            class="nav-link sidebar-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                            <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                        </a>
+                    </li>
 
-    {{-- FOOTER --}}
-    @include('partials.footer')
 
-    @livewireScripts
-    @stack('scripts') {{-- halaman boleh nyuntik script tambahan --}}
+                    <li class="nav-item">
+                        <a href="{{ route('admin.raperdas.index') }}"
+                            class="nav-link sidebar-link {{ request()->is('admin/raperdas*') ? 'active' : '' }}">
+                            <i class="bi bi-file-text me-2"></i> Raperda
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.aspirasi.queue') }}"
+                            class="nav-link sidebar-link {{ request()->routeIs('admin.aspirasi.queue') ? 'active' : '' }}">
+                            <i class="bi bi-inboxes me-2"></i> Aspirasi Masuk
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.news') }}"
+                            class="nav-link sidebar-link {{ request()->routeIs('admin.news') ? 'active' : '' }}">
+                            <i class="bi bi-newspaper me-2"></i> Berita
+                        </a>
+                    </li>
+
+
+                    {{-- <li><a href="#" class="nav-link sidebar-link"><i class="bi bi-people me-2"></i> Pengguna</a>
+                    </li> --}}
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="nav-link sidebar-link btn btn-link text-start w-100">
+                                <i class="bi bi-box-arrow-right me-2"></i> Keluar
+                            </button>
+                        </form>
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+
+        {{-- Backdrop untuk mobile --}}
+        <div id="sidebarBackdrop" class="sidebar-backdrop d-lg-none" tabindex="-1" aria-hidden="true"></div>
+
+        {{-- Konten utama --}}
+        <div class="flex-grow-1 content-wrap">
+            <header class="content-topbar d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-royal-ghost d-lg-none" id="sidebarOpen" aria-label="Buka sidebar">
+                        <i class="bi bi-list fs-5"></i>
+                    </button>
+                    <h4 class="mb-0">@yield('page_title')</h4>
+                </div>
+                <a href="{{ url('/') }}" class="btn btn-outline-primary btn-sm"
+                    aria-label="Kembali ke halaman utama" rel="home">
+                    <i class="bi bi-house-door me-1"></i> Halaman Utama
+                </a>
+
+            </header>
+
+            <main class="main-content p-4">
+                {{-- Flash toast --}}
+                @if (session('success'))
+                    <div class="alert alert-success shadow-sm">{{ session('success') }}</div>
+                @endif
+
+                @yield('content')
+
+                {{ $slot ?? '' }}
+            </main>
+        </div>
+    </div>
+
+    @stack('scripts')
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // === Progress Tahapan ===
-            (function() {
-                const section = document.getElementById("tahapan");
-                if (!section) return; // <-- stop kalau #tahapan tidak ada
-
-                const wrap = section.querySelector(".lapor-steps");
-                if (!wrap) return; // <-- stop kalau struktur step tidak ada
-
-                const lineEl = wrap.querySelector(".steps-line");
-                const progressEl = wrap.querySelector("#stepsProgress");
-                const steps = Array.from(wrap.querySelectorAll(".step"));
-                if (steps.length === 0) return; // <-- stop kalau tidak ada step
-
-                const dots = steps.map((s) => s.querySelector(".step-dot"));
-                const total = steps.length;
-
-                let current = Math.min(
-                    Math.max(parseInt(section.dataset.step || "1", 10), 1),
-                    total
-                );
-
-                function markActive(idx) {
-                    steps.forEach((s, i) => s.classList.toggle("active", i < idx));
-                }
-
-                function layoutLine() {
-                    if (window.innerWidth < 768) {
-                        lineEl.style.width = "0px";
-                        return;
-                    }
-
-                    const wrapRect = wrap.getBoundingClientRect();
-                    const first = dots[0].getBoundingClientRect();
-                    const last = dots[total - 1].getBoundingClientRect();
-
-                    const firstCenterX = first.left - wrapRect.left + first.width / 2;
-                    const lastCenterX = last.left - wrapRect.left + last.width / 2;
-
-                    const trackLeft = firstCenterX;
-                    const trackWidth = Math.max(0, Math.round(lastCenterX - firstCenterX));
-
-                    const centerY = first.top - wrapRect.top + first.height / 2;
-                    const lineH = 6;
-                    const trackTop = Math.round(centerY - lineH / 2);
-
-                    lineEl.style.left = trackLeft + "px";
-                    lineEl.style.top = trackTop + "px";
-                    lineEl.style.width = trackWidth + "px";
-                    lineEl.style.height = lineH + "px";
-                }
-
-                function paintProgress(idx) {
-                    if (window.innerWidth < 768) {
-                        progressEl.style.width = "0px";
-                        return;
-                    }
-
-                    const wrapRect = wrap.getBoundingClientRect();
-                    const first = dots[0].getBoundingClientRect();
-                    const last = dots[total - 1].getBoundingClientRect();
-
-                    const firstCenterX = first.left - wrapRect.left + first.width / 2;
-                    const lastRightX = last.left - wrapRect.left + last.width;
-
-                    let targetX;
-                    if (idx < total) {
-                        const nextRect = dots[idx].getBoundingClientRect();
-                        const nextCenter = nextRect.left - wrapRect.left + nextRect.width / 2;
-                        targetX = nextCenter;
-                    } else {
-                        targetX = lastRightX;
-                    }
-
-                    const widthPx = Math.max(0, Math.round(targetX - firstCenterX));
-                    progressEl.style.width = widthPx + "px";
-                }
-
-                function apply(idx) {
-                    markActive(idx);
-                    layoutLine();
-                    requestAnimationFrame(() => paintProgress(idx));
-                }
-
-                const io = new IntersectionObserver(
-                    (entries) => {
-                        entries.forEach((e) => {
-                            if (e.isIntersecting) {
-                                apply(current);
-                                io.disconnect();
-                            }
-                        });
-                    }, {
-                        threshold: 0.2
-                    }
-                );
-                io.observe(wrap);
-
-                window.addEventListener("resize", () => apply(current));
-            })();
-
-            // === Choices.js untuk Raperda Select ===
-            const rapSelectEl = document.querySelector("#raperdaSelect");
-            if (rapSelectEl) {
-                new Choices(rapSelectEl, {
-                    searchEnabled: false,
-                    itemSelectText: "",
-                    shouldSort: false,
-                    allowHTML: false,
-                    placeholder: true,
-                    placeholderValue: "Pilih Raperda",
-                });
-            }
-
-        });
-    </script>
 
 </body>
 

@@ -24,8 +24,8 @@
                 <ul class="list-unstyled m-0">
                     <li><a href="{{ url('/') }}">Beranda</a></li>
                     <li><a href="#">Tentang</a></li>
-                    <li><a href="{{ route('layanan.ajukan') }}">Ajukan Masukkan</a></li>
-                    <li><a href="{{ route('layanan.tracking') }}">Tracking</a></li>
+                    <li><a href="{{ route('aspirasi.form') }}">Ajukan Masukkan</a></li>
+                    <li><a href="{{ route('aspirasi.tracking') }}">Tracking</a></li>
                     <li><a href="#">Publikasi</a></li>
                     <li><a href="#">Kontak</a></li>
                 </ul>

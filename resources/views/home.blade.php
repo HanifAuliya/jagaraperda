@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.guest')
 
 @section('title', 'JAGARPERDA KALSEL — Memberi Makna Partisipasi')
 
@@ -8,7 +8,7 @@
         <div class="container section pt-3 pb-4 text-center mt-4">
             <h1 class="hero-title mb-2">Wadah Partisipasi Publik</h1>
             <p class="hero-sub mb-3">Sampaikan masukan Anda untuk penyempurnaan Raperda.</p>
-            <a href="{{ route('layanan.ajukan') }}" class="btn btn-royal" aria-label="Beri Masukkan">
+            <a href="{{ route('aspirasi.form') }}" class="btn btn-royal" aria-label="Beri Masukkan">
                 <i class="bi bi-megaphone me-2"></i> Klik Untuk Beri Masukkan
             </a>
         </div>
@@ -111,7 +111,7 @@
                                     </div>
                                     <div class="avatar-meta">
                                         <div class="role">Ketua DPRD</div>
-                                        <div class="name">Nama Ketua DPRD</div>
+                                        <div class="name">H. Supian </div>
                                     </div>
                                 </article>
                             </div>
@@ -120,11 +120,11 @@
                                 <article class="avatar-card">
                                     <div class="avatar-photo ratio ratio-1x1">
                                         <img class="avatar-img" src="{{ asset('assets/img/dprd/wakil1.png') }}"
-                                            alt="Wakil Ketua DPRD I" />
+                                            alt="Wakil Ketua DPRD " />
                                     </div>
                                     <div class="avatar-meta">
-                                        <div class="role">Wakil Ketua DPRD I</div>
-                                        <div class="name">Nama Wakil Ketua I</div>
+                                        <div class="role">Wakil Ketua DPRD Kalsel</div>
+                                        <div class="name">H. Muh Alpiya Rakhman</div>
                                     </div>
                                 </article>
                             </div>
@@ -133,11 +133,11 @@
                                 <article class="avatar-card">
                                     <div class="avatar-photo ratio ratio-1x1">
                                         <img class="avatar-img" src="{{ asset('assets/img/dprd/wakil2.png') }}"
-                                            alt="Wakil Ketua DPRD II" />
+                                            alt="Wakil Ketua DPRD " />
                                     </div>
                                     <div class="avatar-meta">
-                                        <div class="role">Wakil Ketua DPRD II</div>
-                                        <div class="name">Nama Wakil Ketua II</div>
+                                        <div class="role">Wakil Ketua DPRD Kalsel</div>
+                                        <div class="name">Desy Oktavia Sari</div>
                                     </div>
                                 </article>
                             </div>
@@ -145,11 +145,11 @@
                                 <article class="avatar-card">
                                     <div class="avatar-photo ratio ratio-1x1">
                                         <img class="avatar-img" src="{{ asset('assets/img/dprd/wakil3.png') }}"
-                                            alt="Wakil Ketua DPRD III" />
+                                            alt="Wakil Ketua DPRD " />
                                     </div>
                                     <div class="avatar-meta">
-                                        <div class="role">Wakil Ketua DPRD II</div>
-                                        <div class="name">Nama Wakil Ketua II</div>
+                                        <div class="role">Wakil Ketua DPRD Kalsel</div>
+                                        <div class="name">H. Kartoyo</div>
                                     </div>
                                 </article>
                             </div>

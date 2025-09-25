@@ -67,9 +67,12 @@ body {
     width: var(--sidebar-w);
     min-height: 100vh;
     background: linear-gradient(180deg, var(--sidebar-bg), #08122a);
-    position: relative;
+    position: fixed; /* ubah dari relative ke fixed */
+    top: 0;
+    left: 0;
     z-index: 1030;
 }
+
 .sidebar-inner {
     height: 100%;
     display: flex;
@@ -109,10 +112,15 @@ body {
 }
 
 /* Content */
+/* Content wrapper */
 .content-wrap {
     flex: 1 1 auto;
     min-width: 0;
+    margin-left: var(
+        --sidebar-w
+    ); /* geser konten supaya tidak tertutup sidebar */
 }
+
 .content-topbar {
     position: sticky;
     top: 0;
@@ -123,38 +131,50 @@ body {
     padding: 0.8rem 1rem;
 }
 
-/* Collapsed (desktop ≥ lg) */
+/* ============ DESKTOP (≥ lg) ============ */
+/* Sidebar fixed + konten geser */
 @media (min-width: 992px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: var(--sidebar-w);
+        min-height: 100vh;
+        z-index: 1030;
+    }
+    .content-wrap {
+        margin-left: var(--sidebar-w);
+    }
+
+    /* collapsed di desktop */
     body.sidebar-collapsed .sidebar {
         width: var(--sidebar-w-collapsed);
     }
-    body.sidebar-collapsed .sidebar .nav .nav-link {
-        justify-content: center;
+    body.sidebar-collapsed .content-wrap {
+        margin-left: var(--sidebar-w-collapsed);
     }
-    body.sidebar-collapsed .sidebar .nav .nav-link i {
-        margin-right: 0 !important;
-    }
-    body.sidebar-collapsed .sidebar .nav .nav-link::after {
-        left: 0;
-    }
-    body.sidebar-collapsed .sidebar .sidebar-inner > .d-flex a {
-        display: none;
-    } /* sembunyikan title */
 }
 
-/* Mobile: sidebar off-canvas */
+/* ============ MOBILE (< lg) ============ */
+/* Sidebar jadi off-canvas; konten JANGAN digeser */
 @media (max-width: 991.98px) {
+    .content-wrap {
+        margin-left: 0; /* <— ini yang bikin konten nggak ke-geser di HP */
+    }
     .sidebar {
         position: fixed;
-        left: -100%;
         top: 0;
         bottom: 0;
+        left: -100%;
+        width: var(--sidebar-w);
         height: 100vh;
         transition: left 0.25s ease;
+        z-index: 1040; /* di atas konten */
     }
     .sidebar.show {
         left: 0;
-    }
+    } /* saat dibuka */
+
     .sidebar-backdrop {
         position: fixed;
         inset: 0;
@@ -162,6 +182,7 @@ body {
         opacity: 0;
         visibility: hidden;
         transition: 0.2s ease;
+        z-index: 1035;
     }
     .sidebar-backdrop.show {
         opacity: 1;
@@ -176,7 +197,7 @@ body {
 }
 .table thead th {
     font-weight: 600;
-    color: #334155;
+    color: #031c3f;
 }
 .table-hover tbody tr:hover {
     background: rgba(21, 61, 138, 0.04);
@@ -354,4 +375,558 @@ body {
 
 a.no-underline {
     text-decoration: none !important;
+}
+
+// Tabel
+/* ======== Detail Aspirasi (Admin) ======== */
+.asp-modal .modal-content {
+    border: 1px solid #e9eef5;
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(16, 24, 40, 0.08);
+    overflow: hidden;
+}
+
+/* Header sticky */
+.asp-modal .modal-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: linear-gradient(180deg, #ffffff, #f8fafc);
+    border-bottom: 1px solid #eef2f7;
+    padding: 14px 18px;
+}
+
+/* Judul + badge kecil */
+.asp-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+.asp-chip {
+    font-size: 0.725rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid rgba(13, 110, 253, 0.25);
+    background: #eef5ff;
+    color: #0d6efd;
+}
+
+/* Meta info bar */
+.asp-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+    margin-top: 0.25rem;
+}
+.asp-meta .item {
+    font-size: 0.8rem;
+    color: #6b7280;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+/* Grid body */
+.asp-body {
+    padding: 16px 18px;
+}
+.asp-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 0.9fr;
+    gap: 16px;
+}
+@media (max-width: 991.98px) {
+    .asp-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Card polos */
+.asp-card {
+    border: 1px solid #eef2f7;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(16, 24, 40, 0.04);
+}
+.asp-card .asp-card-h {
+    padding: 12px 14px;
+    border-bottom: 1px solid #f0f3f8;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #0f172a;
+}
+.asp-card .asp-card-b {
+    padding: 14px;
+}
+
+/* Field block */
+.asp-field {
+    margin-bottom: 12px;
+}
+.asp-label {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+.asp-value {
+    font-weight: 200;
+    color: #0f172a;
+}
+.asp-content {
+    border: 1px solid #eef2f7;
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 0.95rem;
+    color: #1f2937;
+}
+
+/* Attachments */
+.asp-attach-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.asp-attach-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eef2f7;
+}
+.asp-attach-item:last-child {
+    border-bottom: 0;
+}
+.asp-attach-item i {
+    font-size: 1.1rem;
+    margin-top: 2px;
+    color: #334155;
+}
+.asp-attach-item .meta {
+    font-size: 0.78rem;
+    color: #6b7280;
+}
+
+/* Thread timeline */
+.asp-thread {
+    margin-top: 16px;
+}
+.asp-tl {
+    position: relative;
+    padding-left: 26px;
+}
+.asp-tl::before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #eef2f7;
+}
+.asp-tl-item {
+    position: relative;
+    margin-bottom: 14px;
+}
+.asp-tl-item .dot {
+    position: absolute;
+    left: 4px;
+    top: 6px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #cbd5e1;
+}
+.asp-bubble {
+    background: #ffffff;
+    border: 1px solid #eef2f7;
+    border-radius: 10px;
+    padding: 10px 12px;
+    box-shadow: 0 2px 10px rgba(16, 24, 40, 0.04);
+}
+.asp-bubble.admin {
+    border-color: #dbeafe;
+    background: #f8fbff;
+}
+.asp-head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 4px;
+}
+.asp-actor {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+}
+.asp-actor.admin {
+    background: #eef5ff;
+    color: #0d6efd;
+    border-color: rgba(13, 110, 253, 0.25);
+}
+.asp-actor.user {
+    background: #ecfdf5;
+    color: #059669;
+    border-color: rgba(16, 185, 129, 0.25);
+}
+.asp-time {
+    font-size: 0.78rem;
+    color: #64748b;
+}
+.asp-text {
+    color: #0f172a;
+}
+.asp-file {
+    margin-top: 6px;
+    font-size: 0.85rem;
+}
+.asp-file i {
+    color: #64748b;
+}
+
+/* Footer */
+.asp-modal .modal-footer {
+    border-top: 1px solid #eef2f7;
+    background: #fff;
+}
+
+/* Subtle focus for links */
+.asp-modal a:hover {
+    text-decoration: underline;
+}
+
+/* Better spinner row */
+.asp-loading {
+    display: flex;
+    justify-content: center;
+    padding: 22px 0;
+    color: #6b7280;
+}
+
+/* ======== Detail Aspirasi (Admin) ======== */
+.asp-modal .modal-content {
+    border: 1px solid #e9eef5;
+    border-radius: 14px;
+    box-shadow: 0 8px 30px rgba(16, 24, 40, 0.08);
+    overflow: hidden;
+}
+.asp-modal .modal-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: linear-gradient(180deg, #fff, #f8fafc);
+    border-bottom: 1px solid #eef2f7;
+    padding: 14px 18px;
+}
+.asp-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+.asp-chip {
+    font-size: 0.725rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid rgba(13, 110, 253, 0.25);
+    background: #eef5ff;
+    color: #0d6efd;
+}
+.asp-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.25rem;
+    margin-top: 0.25rem;
+}
+.asp-meta .item {
+    font-size: 0.8rem;
+    color: #6b7280;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.asp-body {
+    padding: 16px 18px;
+}
+.asp-card {
+    border: 1px solid #eef2f7;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 2px 12px rgba(16, 24, 40, 0.04);
+    margin-bottom: 14px;
+}
+.asp-card .asp-card-h {
+    padding: 12px 14px;
+    border-bottom: 1px solid #f0f3f8;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #0f172a;
+}
+.asp-card .asp-card-b {
+    padding: 14px;
+}
+
+.asp-field {
+    margin-bottom: 12px;
+}
+.asp-label {
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+.asp-value {
+    font-weight: 600;
+    color: #0f172a;
+}
+.asp-content {
+    border: 1px solid #eef2f7;
+    background: #f8fafc;
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 0.95rem;
+    color: #1f2937;
+}
+
+.asp-attach-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.asp-attach-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding: 10px 0;
+    border-bottom: 1px dashed #eef2f7;
+}
+.asp-attach-item:last-child {
+    border-bottom: 0;
+}
+.asp-attach-item i {
+    font-size: 1.1rem;
+    margin-top: 2px;
+    color: #334155;
+}
+.asp-attach-item .meta {
+    font-size: 0.78rem;
+    color: #6b7280;
+}
+
+.asp-tl {
+    position: relative;
+    padding-left: 26px;
+}
+.asp-tl::before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #eef2f7;
+}
+.asp-tl-item {
+    position: relative;
+    margin-bottom: 14px;
+}
+.asp-tl-item .dot {
+    position: absolute;
+    left: 4px;
+    top: 6px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid #cbd5e1;
+}
+.asp-bubble {
+    background: #fff;
+    border: 1px solid #eef2f7;
+    border-radius: 10px;
+    padding: 10px 12px;
+    box-shadow: 0 2px 10px rgba(16, 24, 40, 0.04);
+}
+.asp-bubble.admin {
+    border-color: #dbeafe;
+    background: #f8fbff;
+}
+.asp-head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 4px;
+}
+.asp-actor {
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid transparent;
+}
+.asp-actor.admin {
+    background: #eef5ff;
+    color: #0d6efd;
+    border-color: rgba(13, 110, 253, 0.25);
+}
+.asp-actor.user {
+    background: #ecfdf5;
+    color: #059669;
+    border-color: rgba(16, 185, 129, 0.25);
+}
+.asp-time {
+    font-size: 0.78rem;
+    color: #64748b;
+}
+.asp-text {
+    color: #0f172a;
+}
+.asp-file {
+    margin-top: 6px;
+    font-size: 0.85rem;
+}
+.asp-file i {
+    color: #64748b;
+}
+
+.asp-loading {
+    display: flex;
+    justify-content: center;
+    padding: 22px 0;
+    color: #6b7280;
+}
+.asp-modal .modal-footer {
+    border-top: 1px solid #eef2f7;
+    background: #fff;
+}
+.asp-modal a:hover {
+    text-decoration: underline;
+}
+
+// TABEL
+.table td,
+.table th {
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal; /* jangan pakai nowrap */
+}
+
+/* Jaga teks panjang di semua sel */
+.table td,
+.table th {
+    word-break: break-word;
+    white-space: normal;
+}
+
+/* Clamp 2 baris untuk judul/snippet agar tidak kepanjangan di mobile */
+.clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Buat tombol aksi di mobile lebih rapi */
+@media (max-width: 575.98px) {
+    .actions-mobile .btn {
+        width: 100%;
+    }
+}
+
+// Choices select
+.choices,
+.choices__inner,
+.choices__list--dropdown {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease,
+        background-color 0.2s ease, color 0.2s ease, transform 0.18s ease;
+}
+
+/* ==== Theming Choices (Select Tema Biru) ==== */
+.choices,
+.choices__inner {
+    border: 1px solid var(--blue-700);
+    border-radius: 0.6rem;
+}
+
+.choices__inner {
+    min-height: 2.8rem;
+    padding: 0.55rem 0.9rem;
+}
+
+.is-focused .choices__inner,
+.is-open .choices__inner {
+    border-color: var(--blue-500);
+    box-shadow: 0 0 0 0.25rem rgba(21, 61, 138, 0.2); /* ring biru soft */
+}
+
+/* Dropdown panel */
+.choices__list--dropdown {
+    border: 1px solid var(--blue-700);
+    border-radius: 0.6rem;
+    box-shadow: 0 12px 28px rgba(13, 31, 91, 0.12);
+    overflow: hidden;
+}
+
+.choices__list--dropdown .choices__item--selectable {
+    padding: 0.6rem 0.9rem;
+    color: var(--ink);
+}
+
+.choices__list--dropdown .choices__item--selectable.is-highlighted {
+    background: rgba(21, 61, 138, 0.08); /* hover/aktif di panel */
+    color: var(--ink);
+}
+
+.choices__list--dropdown .choices__item--selectable.is-selected {
+    background: linear-gradient(90deg, var(--blue-500), var(--blue-700));
+    color: #fff; /* item terpilih */
+}
+
+/* Placeholder */
+.choices__placeholder {
+    color: #000000;
+}
+
+/* Chevron biru (ganti caret default) */
+.choices[data-type*="select-one"]::after {
+    content: "";
+    position: absolute;
+    right: 0.9rem;
+    top: 50%;
+    width: 16px;
+    height: 16px;
+    transform: translateY(-50%);
+    background-repeat: no-repeat;
+    background-size: 16px 16px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='%23153d8a' stroke-width='2' d='M3 6l5 5 5-5'/%3E%3C/svg%3E");
+    border: none;
+}
+
+/* Hapus segitiga bawaan Choices */
+.choices[data-type*="select-one"] .choices__inner {
+    padding-right: 2.4rem; /* ruang untuk chevron */
+}
+.choices[data-type*="select-one"]::after {
+    border: 0;
+}
+.kpi-ico {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    box-shadow: 0 6px 16px rgba(13, 31, 91, 0.08);
+}
+.kpi-ico i {
+    font-size: 1.25rem;
 }

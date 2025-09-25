@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.guest')
 
 @section('title', 'JAGARPERDA KALSEL — Layanan Aspirasi dan Partisipasi Publik')
 @section('main-class', 'wave-touch')
@@ -40,25 +40,6 @@
                     </div>
 
                     <form id="formAspirasi">
-                        <!-- Identitas -->
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">Nama *</label>
-                            <input type="text" name="nama" class="form-control" placeholder="Nama lengkap Anda" />
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label fw-semibold">Alamat</label>
-                            <input type="text" name="alamat" class="form-control"
-                                placeholder="Alamat domisili (opsional)" />
-                        </div>
-
-                        <div class="row g-3">
-                            <div class="col-md-12">
-                                <label class="form-label fw-semibold">Email</label>
-                                <input type="email" name="email" class="form-control" placeholder="nama@contoh.id"
-                                    autocomplete="email" />
-                            </div>
-                        </div>
 
                         <!-- Raperda -->
                         <div class="mb-3 mt-3">
@@ -94,6 +75,26 @@
                             <small class="text-muted">
                                 PDF/JPG/PNG (maks 10 MB per file)
                             </small>
+                        </div>
+
+                        <!-- Identitas -->
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Nama *</label>
+                            <input type="text" name="nama" class="form-control" placeholder="Nama lengkap Anda" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Alamat</label>
+                            <input type="text" name="alamat" class="form-control"
+                                placeholder="Alamat domisili (opsional)" />
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <label class="form-label fw-semibold">Email</label>
+                                <input type="email" name="email" class="form-control" placeholder="nama@contoh.id"
+                                    autocomplete="email" />
+                            </div>
                         </div>
 
                         <!-- Mode Privasi -->

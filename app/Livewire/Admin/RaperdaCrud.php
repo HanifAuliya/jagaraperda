@@ -54,7 +54,7 @@ class RaperdaCrud extends Component
                 ->orWhere('tahun', 'like', "%{$this->q}%")
         )
             ->latest()
-            ->paginate(10);
+            ->paginate(5);
 
         return view('livewire.admin.raperda-crud', compact('items'));
     }

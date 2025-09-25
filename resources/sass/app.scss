@@ -86,6 +86,66 @@ header.topbar .gold-rule {
     pointer-events: none; /* tidak ganggu klik */
 }
 
+// warna active pada header
+
+/* Nav active efek (topbar) */
+header.topbar .navbar-nav .nav-link {
+    position: relative;
+    border-radius: 12px;
+    padding: 0.5rem 0.75rem;
+    transition: color 0.2s ease, background-color 0.2s ease,
+        transform 0.18s ease;
+}
+
+header.topbar .navbar-nav .nav-link:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-1px);
+}
+
+/* underline emas animasi */
+header.topbar .navbar-nav .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    bottom: -6px;
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+}
+
+/* status aktif (route aktif / parent dropdown aktif / dropdown sedang terbuka) */
+header.topbar .navbar-nav .nav-link.active,
+header.topbar .navbar-nav .nav-link[aria-current="page"],
+header.topbar .navbar-nav .nav-link.active-parent,
+header.topbar .navbar-nav .nav-link.show {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 6px 16px rgba(13, 31, 91, 0.18) inset;
+}
+
+header.topbar .navbar-nav .nav-link.active::after,
+header.topbar .navbar-nav .nav-link[aria-current="page"]::after,
+header.topbar .navbar-nav .nav-link.active-parent::after,
+header.topbar .navbar-nav .nav-link.show::after {
+    opacity: 0.95;
+    transform: translateY(0);
+}
+
+/* small screens: rapikan underline supaya tidak nabrak */
+@media (max-width: 991.98px) {
+    header.topbar .navbar-nav .nav-link::after {
+        left: 8px;
+        right: 8px;
+        bottom: -4px;
+    }
+}
+
 /* Pastikan dropdown tidak terpotong & selalu di atas dekor */
 #navMain {
     overflow: visible !important;
@@ -207,6 +267,26 @@ header.topbar .dropdown-menu {
 .btn-primary:hover,
 .btn-primary:focus {
     background: var(--blue-800);
+    border-color: var(--blue-800);
+}
+
+/* Outline Primary (kebalikan dari btn-primary) */
+.btn-outline-primary {
+    color: var(--blue-700);
+    border-color: var(--blue-700);
+    background-color: transparent;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+    color: #fff;
+    background-color: var(--blue-700);
+    border-color: var(--blue-700);
+}
+
+.btn-outline-primary:active {
+    color: #fff;
+    background-color: var(--blue-800);
     border-color: var(--blue-800);
 }
 
@@ -476,6 +556,11 @@ textarea,
 .steps-line {
     display: none;
 }
+
+.steps-progress {
+    transition: width 0.6s ease;
+}
+
 @media (min-width: 768px) {
     .steps-list {
         grid-template-columns: repeat(5, 1fr);
@@ -1207,4 +1292,318 @@ textarea,
 .pagination .page-item.active .page-link {
     background: var(--blue-700);
     color: #fff;
+}
+
+.hover-lift {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.6rem 1.2rem rgba(0, 0, 0, 0.08);
+}
+.avatar-circle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #eef7ff;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #153d8a;
+}
+.stamp-selesai {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+
+    width: 70px;
+    height: 70px;
+    border: 2px solid #22c55e; /* hijau utama */
+    border-radius: 50%; /* bulat */
+    color: #22c55e;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-align: center;
+    line-height: 1.2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0.6; /* lebih soft */
+    transform: rotate(-12deg);
+    background: rgba(134, 239, 172, 0.05); /* hijau muda samar */
+    box-shadow: 0 0 4px rgba(34, 197, 94, 0.15) inset;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Card panjang: 1 item per baris, nyaman dibaca */
+.card-long {
+    border: 1px solid rgba(21, 61, 138, 0.08);
+    border-radius: 14px;
+    background: #fff;
+    padding-right: 88px; /* ruang untuk stempel */
+}
+
+/* Hover */
+.hover-lift {
+    transition: transform 0.18s ease, box-shadow 0.18s ease,
+        border-color 0.18s ease;
+}
+.hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(11, 31, 91, 0.1),
+        0 0 0 2px rgba(248, 181, 0, 0.06);
+    border-color: rgba(248, 181, 0, 0.25);
+}
+
+/* ===== Publikasi / News ===== */
+
+.news-card {
+    border-radius: 18px;
+    overflow: hidden;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.news-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px rgba(13, 31, 91, 0.12);
+}
+
+/* Media (gambar) dengan efek shine + zoom */
+.news-media {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    background: #f5f7ff;
+    border-bottom: 1px solid #eef2ff;
+}
+.news-media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        120deg,
+        transparent 45%,
+        rgba(255, 255, 255, 0.45) 50%,
+        transparent 55%
+    );
+    transform: translateX(-120%);
+    transition: transform 0.6s ease;
+    pointer-events: none;
+}
+.news-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transform: scale(1);
+    transition: transform 0.35s ease;
+    /* fallback gradient kalau gambar kosong */
+    background: radial-gradient(
+            80% 80% at 75% 20%,
+            rgba(37, 99, 235, 0.12),
+            transparent 60%
+        ),
+        linear-gradient(180deg, #f2f6ff, #e3ecff);
+}
+.news-card:hover .news-media::after {
+    transform: translateX(120%);
+}
+.news-card:hover .news-img {
+    transform: scale(1.04);
+}
+
+/* Meta (tanggal • tempat) */
+.news-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+.news-meta .dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 999px;
+    background: var(--gold);
+}
+
+/* Judul */
+.news-title a {
+    color: var(--ink);
+    text-decoration: none;
+}
+.news-title a:hover {
+    color: var(--blue-700);
+    text-decoration: underline;
+}
+
+/* Aksen emas bawah kartu */
+.news-underline {
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    opacity: 0.9;
+}
+
+/* Pagination sentuhan kecil */
+.pagination .page-link {
+    border-radius: 10px;
+}
+.pagination .page-item.active .page-link {
+    background: var(--blue-700);
+    border-color: var(--blue-700);
+}
+
+/* Responsif */
+@media (max-width: 991.98px) {
+    /* md–lg */
+    .pg-title {
+        font-size: clamp(22px, 4.5vw, 32px);
+    }
+}
+@media (max-width: 575.98px) {
+    .news-card .card-body {
+        padding: 1rem;
+    }
+}
+
+/* ===== Social Pills — khusus halaman kontak ===== */
+.social-pill-contact {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: #fff; /* dasar putih elegan */
+    border: 1px solid rgba(245, 211, 107, 0.55); /* emas tipis */
+    color: var(--blue-700);
+    box-shadow: 0 6px 14px rgba(13, 31, 91, 0.06);
+    transition: transform 0.15s ease, box-shadow 0.15s ease,
+        background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.social-pill-contact i {
+    font-size: 1rem;
+    line-height: 1;
+}
+
+.social-pill-contact:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(13, 31, 91, 0.12);
+}
+
+/* Aksesibilitas fokus */
+.social-pill-contact:focus-visible {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(245, 211, 107, 0.28),
+        0 8px 18px rgba(13, 31, 91, 0.14);
+}
+
+/* Varian brand saat hover */
+.sp-fb:hover {
+    background: #1877f2;
+    border-color: #1877f2;
+    color: #fff;
+}
+.sp-x:hover {
+    background: #000;
+    border-color: #000;
+    color: #fff;
+}
+/* Instagram gradient */
+.sp-ig:hover {
+    background: radial-gradient(
+        circle at 30% 107%,
+        #fdf497 0%,
+        #fdf497 5%,
+        #fd5949 45%,
+        #d6249f 60%,
+        #285aeb 90%
+    );
+    border-color: #d62976;
+    color: #fff;
+}
+
+/* Preferensi reduce motion */
+@media (prefers-reduced-motion: reduce) {
+    .social-pill-contact,
+    .social-pill-contact:hover {
+        transition: none;
+        transform: none;
+    }
+}
+
+// Loading
+/* ===== Page Loader (full-screen) ===== */
+#appLoader {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(180deg, var(--blue-900), var(--blue-700));
+    display: grid;
+    place-items: center;
+    z-index: 5000;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+#appLoader.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+body.is-loading {
+    overflow: hidden;
+} /* kunci scroll saat loading */
+
+#appLoader .loader-box {
+    text-align: center;
+    color: #fff;
+    padding: 1rem 1.25rem;
+    border-radius: 16px;
+    backdrop-filter: saturate(140%) blur(0px);
+}
+.loader-ring {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.25);
+    border-top-color: var(--gold);
+    animation: spin 1s linear infinite;
+    margin: 0 auto 12px;
+}
+.loader-title {
+    font-weight: 800;
+    letter-spacing: 0.3px;
+}
+.loader-sub {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* wave dekor di bawah */
+.loader-wave {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: min(22vw, 180px);
+    opacity: 0.9;
+    pointer-events: none;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Hormati preferensi user */
+@media (prefers-reduced-motion: reduce) {
+    .loader-ring {
+        animation: none;
+    }
+    #appLoader {
+        transition: none;
+    }
 }

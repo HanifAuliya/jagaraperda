@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.guest')
 
 @section('title', 'Publikasi Raperda — JAGARPERDA KALSEL')
 
@@ -7,7 +7,7 @@
         <div class="mb-4">
             <nav aria-label="breadcrumb" class="pg-crumb">
                 <ol class="breadcrumb m-0">
-                    <li class="breadcrumb-item active" aria-current="page">Publikasi</li>
+                    <li class="breadcrumb-item active" aria-current="page">Daftar</li>
                 </ol>
             </nav>
             <h2 class="pg-title mt-1">Publikasi Raperda</h2>
