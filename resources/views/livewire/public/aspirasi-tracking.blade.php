@@ -1,3 +1,9 @@
+@section('title', 'Lacak Status Aspirasi — JAGARPERDA KALSEL')
+@section('meta_title', 'Lacak Aspirasi | JAGARPERDA KALSEL')
+@section('meta_description', 'Masukkan nomor laporan atau kata kunci untuk melacak status aspirasi Anda. Transparansi
+    proses legislasi Raperda Kalimantan Selatan.')
+@section('canonical', route('aspirasi.tracking'))
+
 <div class="row justify-content-center">
     <div class="col-12 col-lg-10 col-xl-8">
 

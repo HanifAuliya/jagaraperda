@@ -1,6 +1,15 @@
 @extends('layouts.guest')
 
-@section('title', 'Publikasi Raperda — JAGARPERDA KALSEL')
+@section('title', 'Daftar Raperda ' . date('Y') . ' — JAGARPERDA KALSEL')
+@section('meta_title', 'Daftar Raperda ' . date('Y') . ' | JAGARPERDA KALSEL')
+@section('meta_description',
+    'Lihat daftar Raperda ' .
+    date('Y') .
+    ' lengkap dengan naskah akademik. Ikuti
+    perkembangannya dan sampaikan aspirasi Anda untuk membangun Kalimantan Selatan yang lebih baik.')
+@section('canonical', route('publikasi.index'))
+
+
 
 @section('content')
     <main id="content" class="container section">

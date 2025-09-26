@@ -1,6 +1,11 @@
 @extends('layouts.guest')
 
-@section('title', 'Kontak')
+@section('title', 'Kontak — JAGARPERDA KALSEL')
+@section('meta_title', 'Kontak | JAGARPERDA KALSEL')
+@section('meta_description', 'Hubungi tim JAGARPERDA KALSEL untuk pertanyaan, dukungan, atau informasi lebih lanjut
+    mengenai aspirasi publik dan Raperda.')
+@section('canonical', route('kontak'))
+
 @section('main-class', 'wave-touch')
 
 @section('hero')

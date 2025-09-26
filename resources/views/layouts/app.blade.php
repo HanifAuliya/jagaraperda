@@ -7,11 +7,40 @@
     <title>@yield('title', 'Dashboard Admin')</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+
     @vite(['resources/sass/dashboard.scss', 'resources/js/app.js'])
 
     @stack('styles')
+    {{-- Favicon & app icons --}}
+    <link rel="icon" href="{{ asset('favicon/favicon.ico') }}" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon/favicon.svg') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon/favicon-16x16.png') }}">
+
+    <link rel="apple-touch-icon" href="{{ asset('favicon/apple-touch-icon.png') }}">
+    <link rel="mask-icon" href="{{ asset('favicon/safari-pinned-tab.svg') }}" color="#153d8a">
+    <link rel="manifest" href="{{ asset('favicon/site.webmanifest') }}">
     {{-- choices --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+
+    {{-- SEO minimal --}}
+    @php
+        $metaTitle = trim($__env->yieldContent('meta_title', $__env->yieldContent('title', 'JAGARPERDA KALSEL')));
+        $metaDesc = trim(
+            $__env->yieldContent(
+                'meta_description',
+                'Portal aspirasi & partisipasi publik Raperda Kalimantan Selatan.',
+            ),
+        );
+        $canonical = $__env->yieldContent('canonical', url()->current());
+        $metaRobots = $__env->yieldContent('meta_robots', 'index,follow');
+    @endphp
+
+    <link rel="canonical" href="{{ $canonical }}" />
+    <meta name="description" content="{{ $metaDesc }}">
+    <meta name="robots" content="{{ $metaRobots }}">
+    <meta name="author" content="JAGARPERDA KALSEL">
+
 
 </head>
 
@@ -60,6 +89,19 @@
                         <a href="{{ route('admin.news') }}"
                             class="nav-link sidebar-link {{ request()->routeIs('admin.news') ? 'active' : '' }}">
                             <i class="bi bi-newspaper me-2"></i> Berita
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.news') }}"
+                            class="nav-link sidebar-link {{ request()->routeIs('admin.news') ? 'active' : '' }}">
+                            <i class="bi bi-newspaper me-2"></i> Berita
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('admin.galeri') }}"
+                            class="nav-link sidebar-link {{ request()->routeIs('admin.galeri') ? 'active' : '' }}">
+                            <i class="bi bi-images me-2"></i> Galeri
                         </a>
                     </li>
 

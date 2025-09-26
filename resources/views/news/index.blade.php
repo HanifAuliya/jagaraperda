@@ -1,6 +1,11 @@
 @extends('layouts.guest')
 
-@section('title', 'Publikasi')
+@section('title', 'Berita & Informasi — JAGARPERDA KALSEL')
+@section('meta_title', 'Berita | JAGARPERDA KALSEL')
+@section('meta_description', 'Ikuti berita terbaru seputar Raperda, kegiatan aspirasi publik, dan perkembangan legislasi
+    di Kalimantan Selatan.')
+@section('canonical', route('news.index'))
+
 
 @section('content')
     <main id="content" class="container section">

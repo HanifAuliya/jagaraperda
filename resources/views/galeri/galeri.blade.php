@@ -1,6 +1,11 @@
 @extends('layouts.guest')
 
-@section('title', 'Photo Gallery')
+@section('title', 'Galeri Dokumentasi — JAGARPERDA KALSEL')
+@section('meta_title', 'Galeri | JAGARPERDA KALSEL')
+@section('meta_description', 'Lihat dokumentasi kegiatan partisipasi publik, sosialisasi Raperda, dan momen penting lain
+    di JAGARPERDA Kalimantan Selatan.')
+@section('canonical', route('galeri.index'))
+
 
 @section('content')
     <main id="content" class="container section">

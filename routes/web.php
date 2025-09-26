@@ -25,6 +25,10 @@ use App\Models\News;
 use App\Livewire\Public\AspirasiSuksesList;
 use App\Livewire\Public\AspirasiSuksesShow;
 
+use App\Http\Controllers\SitemapController;
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+
 Route::get('/', fn() => view('home'))->name('home');
 Route::view('/kontak', 'kontak')->name('kontak');
 

@@ -27,8 +27,10 @@
     <meta name="msapplication-TileColor" content="#153d8a">
 
     {{-- (Opsional) favicon sesuai tema terang/gelap --}}
-    {{-- <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-light-32.png') }}" media="(prefers-color-scheme: light)"> --}}
-    {{-- <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-dark-32.png') }}"  media="(prefers-color-scheme: dark)"> --}}
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-light-32.png') }}"
+        media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon/favicon-dark-32.png') }}"
+        media="(prefers-color-scheme: dark)">
 
     {{-- Font --}}
     <link rel="preconnect" href="https://fonts.googleapis.com" />

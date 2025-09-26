@@ -1,4 +1,9 @@
-@section('title', 'JAGARPERDA KALSEL — Memberi Makna Partisipasi')
+@section('title', 'Ajukan Aspirasi — JAGARPERDA KALSEL')
+@section('meta_title', 'Ajukan Aspirasi | JAGARPERDA KALSEL')
+@section('meta_description',
+    'Sampaikan aspirasi Anda terkait Rancangan Peraturan Daerah Kalimantan Selatan secara mudah
+    dan cepat. Partisipasi Anda penting dalam proses legislasi yang transparan.')
+@section('canonical', route('aspirasi.form'))
 
 {{-- HERO hanya untuk home --}}
 @section('hero')

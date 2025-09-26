@@ -1,6 +1,12 @@
 @extends('layouts.guest')
 
-@section('title', 'JAGARPERDA KALSEL — Memberi Makna Partisipasi')
+@section('title', 'JAGARAPERDA KALSEL — Memberi Makna Partisipasi')
+@section('meta_title', 'JAGARAPERDA KALSEL | Portal Aspirasi Publik')
+@section('meta_description',
+    'JAGARAPERDA KALSEL — Memberi Makna Partisipasi, Sampaikan aspirasi Anda terkait Rancangan Peraturan Daerah Kalimantan
+    Selatan. Lacak
+    status laporan dan ikut terlibat dalam proses legislasi secara transparan.')
+@section('canonical', url('/'))
 
 {{-- HERO hanya untuk home --}}
 @section('hero')

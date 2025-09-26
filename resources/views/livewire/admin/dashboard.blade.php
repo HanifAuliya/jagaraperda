@@ -1,5 +1,5 @@
 @section('page_title', 'JAGARAPERDA')
-@section('title', 'Dashboard - Aspirasi Masuk')
+@section('title', 'Dashboard - JAGARAPERDA')
 <div>
     {{-- Header --}}
     <div class="d-flex justify-content-between align-items-center mb-4">
