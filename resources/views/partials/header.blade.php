@@ -79,6 +79,42 @@
                         </a>
                     </li>
 
+                    {{-- TAMU: tombol Masuk --}}
+                    @guest
+                        @if (Route::has('login'))
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs('login') ? 'active' : '' }}"
+                                    href="{{ route('login') }}"
+                                    @if (request()->routeIs('login')) aria-current="page" @endif>
+                                    Login
+                                </a>
+                            </li>
+                        @endif
+                    @endguest
+
+                    {{-- LOGIN: tombol Dashboard --}}
+                    @auth
+                        @php
+                            // pilih nama route dashboard yang ada di project-mu
+                            $dashRoute = Route::has('admin.dashboard')
+                                ? 'admin.dashboard'
+                                : (Route::has('admin.dashboard.admin')
+                                    ? 'admin.dashboard.admin'
+                                    : (Route::has('dashboard')
+                                        ? 'dashboard'
+                                        : null));
+                        @endphp
+
+                        @if ($dashRoute)
+                            <li class="nav-item">
+                                <a class="nav-link {{ request()->routeIs($dashRoute . '*') ? 'active' : '' }}"
+                                    href="{{ route($dashRoute) }}"
+                                    @if (request()->routeIs($dashRoute . '*')) aria-current="page" @endif>
+                                    Dashboard
+                                </a>
+                            </li>
+                        @endif
+                    @endauth
 
                 </ul>
             </div>

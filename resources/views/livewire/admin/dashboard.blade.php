@@ -126,7 +126,50 @@
         </div>
     </div>
 
+    {{-- Recent Feedback --}}
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white border-0 fw-semibold">Feedback Terbaru</div>
+        <div class="table-responsive">
+            <table class="table align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 120px;">Tanggal</th>
+                        <th style="width: 90px;">Rating</th>
+                        <th>Aspirasi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($recentFeedback as $f)
+                        <tr>
+                            <td>{{ $f->created_at->format('d M Y H:i') }}</td>
+                            <td>
+                                @php
+                                    $badge =
+                                        ['puas' => 'success', 'cukup' => 'warning', 'tidak' => 'danger'][$f->rating] ??
+                                        'secondary';
+                                @endphp
+                                <span class="badge text-bg-{{ $badge }}">{{ ucfirst($f->rating) }}</span>
+                            </td>
+                            <td>
+                                @if ($f->aspirasi)
+                                    <div class="fw-semibold">{{ $f->aspirasi->judul ?? '—' }}</div>
+                                    <div class="small text-muted">#{{ $f->aspirasi->id }} •
+                                        {{ $f->aspirasi->status ?? '—' }}</div>
+                                @else
+                                    <span class="text-muted">—</span>
+                                @endif
+                            </td>
 
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="4" class="text-center text-muted">Belum ada feedback.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     {{-- Chart.js CDN --}}
     @push('scripts')

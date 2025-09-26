@@ -1,6 +1,6 @@
 @extends('layouts.guest')
 
-@section('title', $news->title)
+@section('title', $news->title . '— Publikasi ')
 
 @section('content')
     <main id="content" class="container section">

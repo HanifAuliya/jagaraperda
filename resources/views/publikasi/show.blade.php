@@ -1,6 +1,6 @@
 @extends('layouts.guest')
 
-@section('title', $raperda->judul . ' — Publikasi Raperda')
+@section('title', $raperda->judul . ' — Raperda')
 
 @section('content')
     <main class="container section">
@@ -12,11 +12,33 @@
         </nav>
 
         <h2 class="pg-title">{{ $raperda->judul }}</h2>
-        <div class="d-flex align-items-center gap-2 text-muted mb-3">
-            <span>{{ $raperda->tahun ?? '—' }}</span>
-            <span>•</span>
-            <span>{{ ucfirst($raperda->status) }}</span>
+        <div class="pg-underline mb-3"></div>
+
+        <div class="d-flex align-items-center flex-wrap gap-2 mb-3">
+            {{-- Tahun (tanpa badge) --}}
+            <span class="text-muted d-inline-flex align-items-center">
+                <i class="bi bi-calendar3 me-1"></i>{{ $raperda->tahun ?? '—' }}
+            </span>
+
+            {{-- Status --}}
+            @if ($raperda->status === 'final')
+                <span class="badge rounded-pill bg-success-subtle text-success">
+                    <i class="bi bi-check-circle me-1"></i> Final
+                </span>
+            @else
+                <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis">
+                    <i class="bi bi-hourglass-split me-1"></i> Draf
+                </span>
+            @endif
+
+
+            {{-- Pemrakarsa (tanpa badge) --}}
+            <span class="text-muted d-inline-flex align-items-center">
+                <i class="bi bi-building me-1"></i>{{ $raperda->pemrakarsa ?? '—' }}
+            </span>
         </div>
+
+
 
         @if ($raperda->berkas)
             <div class="mb-3">

@@ -48,7 +48,7 @@ class LoginRequest extends FormRequest
 
         if ($loginInput === 'admin') {
             // pakai akun admin default
-            $credentials['email'] = 'admin@jagarperda.id';
+            $credentials['email'] = 'admin@jagaraperda.org';
         } else {
             // anggap input adalah email
             $credentials['email'] = $loginInput;

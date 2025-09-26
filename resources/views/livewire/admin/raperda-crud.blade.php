@@ -31,6 +31,7 @@
                         <tr>
                             <th style="width:60px">No</th>
                             <th>Judul</th>
+                            <th>Pemrakarsa</th>
                             <th style="width:120px">Status</th>
                             <th style="width:100px">Tahun</th>
                             <th style="width:100px">Aktif</th>
@@ -57,6 +58,7 @@
                                     @endif
 
                                 </td>
+                                <td>{{ $i->pemrakarsa ?? '—' }}</td>
                                 <td>
                                     <span class="badge {{ $i->status === 'final' ? 'bg-success' : 'bg-secondary' }}">
                                         {{ ucfirst($i->status) }}
@@ -112,7 +114,14 @@
                                 <div class="text-danger small">{{ $message }}</div>
                             @enderror
                         </div>
-
+                        <div class="col-md-12">
+                            <label class="form-label">Pemrakarsa {{-- * kalau ingin wajib --}}</label>
+                            <input type="text" class="form-control" wire:model="pemrakarsa"
+                                placeholder="Mis. OPD pengusul">
+                            @error('pemrakarsa')
+                                <div class="text-danger small">{{ $message }}</div>
+                            @enderror
+                        </div>
 
                         <div class="col-md-6">
                             <label class="form-label">Tahun</label>
@@ -151,16 +160,38 @@
                             <label class="form-label">
                                 Berkas PDF {{ $mode === 'create' || !$hasBerkas ? '*' : '' }}
                             </label>
+
+                            {{-- Input file --}}
                             <input type="file" class="form-control" wire:model="berkas_upload"
-                                accept="application/pdf">
+                                accept="application/pdf" @if ($berkas_upload) disabled @endif>
+
                             <div class="form-text">
                                 Maks. 10 MB.
                                 {{ $mode === 'edit' && $hasBerkas ? 'Kosongkan jika tidak ingin mengganti.' : 'Wajib diunggah.' }}
                             </div>
+
+                            {{-- Error validasi --}}
                             @error('berkas_upload')
                                 <div class="text-danger small">{{ $message }}</div>
                             @enderror
-                            <div wire:loading wire:target="berkas_upload" class="small text-muted">Mengunggah...</div>
+
+                            {{-- Loading indikator saat unggah file --}}
+                            <div wire:loading wire:target="berkas_upload" class="mt-1">
+                                <div class="text-primary small d-flex align-items-center gap-1">
+                                    <div class="spinner-border spinner-border-sm" role="status"></div>
+                                    <span>Mengunggah berkas...</span>
+                                </div>
+                            </div>
+
+                            {{-- Tombol hapus/ganti file --}}
+                            @if ($berkas_upload)
+                                <div class="mt-2">
+                                    <button type="button" class="btn btn-outline-danger btn-sm"
+                                        wire:click="$set('berkas_upload', null)">
+                                        <i class="bi bi-x-circle me-1"></i> Hapus/Ganti File
+                                    </button>
+                                </div>
+                            @endif
                         </div>
 
                         <div class="col-12">

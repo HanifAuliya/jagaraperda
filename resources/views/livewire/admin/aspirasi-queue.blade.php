@@ -645,8 +645,15 @@
                     @if ($active?->tracking_no)
                         <span class="me-auto small text-muted">
                             Nomor Laporan: <code class="fw-semibold">{{ $active->tracking_no }}</code>
+                            &nbsp;|&nbsp; PIN: <code class="fw-semibold">{{ $active->tracking_pin }}</code>
+                            Anda bisa cek tracking di halaman publik dengan mengklik:
+                            <a href="{{ route('aspirasi.tracking', ['no' => $active->tracking_no]) }}"
+                                class="link-primary fw-semibold" target="_blank" rel="noopener">
+                                Halaman Tracking <i class="bi bi-box-arrow-up-right ms-1"></i>
+                            </a>
                         </span>
                     @endif
+
                     <button class="btn btn-dark" data-bs-dismiss="modal">Tutup</button>
                 </div>
 

@@ -39,7 +39,10 @@
                                 <span class="badge rounded-pill bg-warning-subtle text-warning-emphasis">Draf</span>
                             @endif
                         </div>
+
+
                         <h3 class="h6 fw-bold mb-2 pub-title text-truncate-2">{{ $r->judul }}</h3>
+                        <p class="text-muted small mb-3 text-truncate-3"> {{ $r->pemrakarsa }}</p>
                         <p class="text-muted small mb-3 text-truncate-3">{{ $r->ringkasan }}</p>
                         <div class="d-flex flex-wrap gap-2">
                             @if ($r->berkas)

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('judul', 200);              // judul raperda
             $table->string('slug')->unique();
             $table->year('tahun')->nullable();         // tahun
+            $table->string('pemrakarsa', 150)->nullable();
             $table->enum('status', ['draf', 'final'])->default('draf');
             $table->text('ringkasan')->nullable();
             $table->string('berkas')->nullable();      // path file pdf

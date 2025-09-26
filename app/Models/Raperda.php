@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Raperda extends Model
 {
-    protected $fillable = ['judul', 'tahun', 'status', 'aktif', 'ringkasan', 'berkas', 'slug'];
+    protected $fillable = ['judul', 'tahun', 'status', 'aktif', 'ringkasan', 'berkas', 'slug', 'pemrakarsa'];
 
     use HasFactory;
 

@@ -480,11 +480,33 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label fw-semibold">Lampiran (opsional)</label>
-                                <input type="file" class="form-control" wire:model="reply_file">
+
+                                {{-- Input file --}}
+                                <input type="file" class="form-control" wire:model="reply_file"
+                                    @if ($reply_file) disabled @endif>
                                 <small class="text-muted">PDF/JPG/PNG, maks 10 MB.</small>
+
                                 @error('reply_file')
                                     <div class="text-danger small">{{ $message }}</div>
                                 @enderror
+
+                                {{-- Loading indicator --}}
+                                <div wire:loading wire:target="reply_file" class="mt-1">
+                                    <div class="text-primary small d-flex align-items-center gap-1">
+                                        <div class="spinner-border spinner-border-sm" role="status"></div>
+                                        <span>Mengunggah file...</span>
+                                    </div>
+                                </div>
+
+                                {{-- Tombol hapus/ganti file --}}
+                                @if ($reply_file)
+                                    <div class="mt-2">
+                                        <button type="button" class="btn btn-outline-danger btn-sm"
+                                            wire:click="$set('reply_file', null)">
+                                            <i class="bi bi-x-circle me-1"></i> Hapus/Ganti File
+                                        </button>
+                                    </div>
+                                @endif
                             </div>
 
                             <div class="d-flex flex-wrap gap-2 mt-2">

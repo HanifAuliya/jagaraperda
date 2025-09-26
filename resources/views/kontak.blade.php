@@ -11,7 +11,7 @@
             </h1>
 
             <p class="hero-sub mb-3">
-                Sampaikan masukan Anda untuk penyempurnaan Raperda.
+                Silahkan Hubungi kami lewat :
             </p>
         </div>
     </div>

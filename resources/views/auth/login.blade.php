@@ -26,8 +26,23 @@
 
                     <div class="text-center mb-4">
                         <img src="{{ asset('assets/img/logo/logo.png') }}" alt="Logo" style="height:48px">
-                        <h1 class="h4 fw-bold mt-3">Masuk ke Akun</h1>
-                        <p class="text-muted m-0">Silakan masukkan email dan kata sandi Anda</p>
+
+                        <h1 class="h4 fw-bold mt-3">
+                            Masuk ke Akun
+                            <span class="badge rounded-pill bg-warning text-dark align-middle ms-2">
+                                Khusus Pegawai
+                            </span>
+                        </h1>
+
+                        <p class="text-muted m-0">Silakan masukkan email dan kata sandi Anda.</p>
+
+                        {{-- Info untuk masyarakat umum (opsional, kalau punya rute berikut) --}}
+                        <p class="small text-muted mt-2">
+                            Untuk masyarakat umum tidak perlu akun. Kirim aspirasi melalui
+                            <a href="{{ route('aspirasi.form') }}">Form Aspirasi</a>
+                            atau
+                            <a href="{{ route('aspirasi.tracking') }}">Lacak Aspirasi</a>.
+                        </p>
                     </div>
 
                     @if (session('status'))

@@ -18,6 +18,7 @@ class RaperdaCrud extends Component
 
     public $raperdaId = null;
     public $judul, $tahun, $status = 'draf', $aktif = true, $ringkasan;
+    public $pemrakarsa; // NEW
     public $berkas_upload;
 
     public $showForm = false;
@@ -27,16 +28,15 @@ class RaperdaCrud extends Component
 
     protected function rules()
     {
-        // aturan dasar
         $rules = [
             'judul'      => 'required|string|max:200',
-            'tahun'      => 'nullable|digits:4',
+            'pemrakarsa' => 'required|string|max:150', // NEW
+            'tahun'      => 'required|digits:4',
             'status'     => 'required|in:draf,final',
             'aktif'      => 'boolean',
-            'ringkasan'  => 'required|string|min:20', // bisa disesuaikan
+            'ringkasan'  => 'nullable|string|min:20',
         ];
 
-        // PDF: wajib saat create, dan saat edit kalau belum ada file
         $pdfRule = ($this->mode === 'create' || ($this->mode === 'edit' && !$this->hasBerkas))
             ? 'required|file|mimes:pdf|max:10240'
             : 'nullable|file|mimes:pdf|max:10240';
@@ -45,6 +45,7 @@ class RaperdaCrud extends Component
         return $rules;
     }
 
+
     public function render()
     {
         $items = Raperda::when(
@@ -52,9 +53,9 @@ class RaperdaCrud extends Component
             fn($q) =>
             $q->where('judul', 'like', "%{$this->q}%")
                 ->orWhere('tahun', 'like', "%{$this->q}%")
-        )
-            ->latest()
-            ->paginate(5);
+                ->orWhere('pemrakarsa', 'like', "%{$this->q}%") // NEW
+        )->latest()->paginate(10);
+
 
         return view('livewire.admin.raperda-crud', compact('items'));
     }
@@ -94,15 +95,18 @@ class RaperdaCrud extends Component
         $this->resetForm();
         $this->mode = 'create';
         $this->hasBerkas = false;
-        $this->tahun = date('Y'); // default tahun sekarang
+        $this->tahun = date('Y');
+        $this->pemrakarsa = null; // NEW
         $this->dispatch('modal-show', id: 'raperdaModal');
     }
+
 
     public function openEdit($id)
     {
         $r = Raperda::findOrFail($id);
         $this->raperdaId   = $r->id;
         $this->judul       = $r->judul;
+        $this->pemrakarsa  = $r->pemrakarsa; // NEW
         $this->tahun       = $r->tahun;
         $this->status      = $r->status;
         $this->aktif       = (bool) $r->aktif;
@@ -113,6 +117,7 @@ class RaperdaCrud extends Component
         $this->hasBerkas = !empty($r->berkas);
         $this->dispatch('modal-show', id: 'raperdaModal');
     }
+
 
     public function closeForm()
     {
@@ -224,6 +229,7 @@ class RaperdaCrud extends Component
         $this->reset([
             'raperdaId',
             'judul',
+            'pemrakarsa', // NEW
             'tahun',
             'status',
             'aktif',
