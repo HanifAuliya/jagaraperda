@@ -14,7 +14,7 @@ class AdminUserSeeder extends Seeder
             ['email' => 'admin@jagaraperda.org'],
             [
                 'name' => 'Administrator',
-                'password' => Hash::make('@Adminjagaraperdakalimantanselatan001'),
+                'password' => Hash::make(env('SEED_ADMIN_PASSWORD') ?: 'password'),
                 'role' => 'admin',
             ]
         );
